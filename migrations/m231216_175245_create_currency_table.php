@@ -14,9 +14,9 @@ class m231216_175245_create_currency_table extends Migration
     {
         $this->createTable('{{%currency}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
-            'code' => $this->string()->unique(),
-            'rate' => $this->float()
+            'name' => $this->string()->notNull(),
+            'code' => $this->string()->unique()->notNull(),
+            'rate' => $this->float()->notNull()
         ]);
     }
 
