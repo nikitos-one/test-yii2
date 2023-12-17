@@ -45,9 +45,13 @@ class DataController extends Controller
       $transaction = Yii::$app->db->beginTransaction();
       try {
         foreach ($data as $row) {
-          $model = new Currency();
-
-          $model->attributes = $row;
+          $model = Currency::find()->where(['code' => $row['code']])->one();
+          if($model) {
+            $model->rate = $row['rate'];
+          } else {
+            $model = new Currency();
+            $model->attributes = $row;
+          }
           $model->save();
         }
         $transaction->commit();
